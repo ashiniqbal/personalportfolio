@@ -5,29 +5,22 @@ export default function ProcessSection() {
   const [headRef, headVisible] = useScrollReveal()
 
   return (
-    <section id="process">
+    <section id="process" style={{ background: 'var(--bg-page)', borderTop: '1px solid var(--border-light)' }}>
       <div className="container">
-        <div
-          ref={headRef}
-          className={`fade-up ${headVisible ? 'visible' : ''}`}
-          style={{ textAlign: 'center', marginBottom: 72 }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="section-label">How I Work</div>
-          </div>
-          <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', marginBottom: 16 }}>
-            My Proven <span className="gradient-text">7-Step Process</span>
+        {/* Header */}
+        <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`} style={{ textAlign: 'center', marginBottom: 64 }}>
+          <div className="section-label" style={{ display: 'inline-flex', marginBottom: 14 }}>/ Our Projects Explained</div>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}>
+            Here's how it works
           </h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            Every project follows this battle-tested process. Transparent, efficient, and built to ensure
-            you're happy at every step — not just at the end.
-          </p>
         </div>
 
+        {/* Staggered cards — like reference: offset at different heights */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 40,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+          gap: 20,
+          alignItems: 'start',
         }}>
           {processSteps.map((step, i) => (
             <ProcessCard key={i} step={step} index={i} />
@@ -40,57 +33,94 @@ export default function ProcessSection() {
 
 function ProcessCard({ step, index }) {
   const [ref, visible] = useScrollReveal()
+  // Alternating vertical offset like reference
+  const offsetTop = [0, -32, 0, -24, 0, -32, 0][index] || 0
+
   return (
     <div
       ref={ref}
       className={`fade-up ${visible ? 'visible' : ''}`}
-      style={{ transitionDelay: `${index * 0.08}s` }}
+      style={{
+        transitionDelay: `${index * 0.07}s`,
+        marginTop: offsetTop,
+      }}
     >
-      <div className="glass-card" style={{ padding: 28 }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 16 }}>
-          {/* Step icon */}
-          <div style={{
-            width: 52, height: 52,
-            borderRadius: 'var(--radius-md)',
-            background: 'var(--gradient-primary)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.5rem',
-            flexShrink: 0,
-            boxShadow: '0 8px 24px rgba(124,106,255,0.3)',
-          }}>
-            {step.icon}
-          </div>
-          <div>
-            <div style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.7rem',
-              color: 'var(--text-muted)',
-              marginBottom: 4,
-              letterSpacing: '0.08em',
-            }}>
-              {step.number} · {step.duration}
-            </div>
-            <h3 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              color: 'var(--text-primary)',
-              lineHeight: 1.2,
-            }}>
-              {step.title}
-            </h3>
-            <div style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', fontWeight: 600, marginTop: 2 }}>
-              {step.subtitle}
-            </div>
-          </div>
+      <div style={{
+        padding: '28px 24px',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-light)',
+        borderRadius: 'var(--r-xl)',
+        position: 'relative',
+        overflow: 'hidden',
+        transition: 'box-shadow var(--t-med), transform var(--t-med), border-color var(--t-med)',
+        cursor: 'default',
+      }}
+        onMouseEnter={e => {
+          e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)'
+          e.currentTarget.style.transform = 'translateY(-4px)'
+          e.currentTarget.style.borderColor = 'var(--border-mid)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.boxShadow = 'none'
+          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.borderColor = 'var(--border-light)'
+        }}
+      >
+        {/* Big number — top right like reference */}
+        <div style={{
+          position: 'absolute', top: 16, right: 20,
+          fontFamily: 'var(--font-serif)',
+          fontSize: '3rem', fontWeight: 400,
+          color: 'var(--border-light)',
+          lineHeight: 1,
+          userSelect: 'none',
+          transition: 'color var(--t-med)',
+        }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--border-mid)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--border-light)'}
+        >
+          {step.number}
         </div>
-        <p style={{
-          fontSize: '0.875rem',
-          color: 'var(--text-secondary)',
-          lineHeight: 1.7,
+
+        {/* Icon */}
+        <div style={{
+          width: 44, height: 44,
+          borderRadius: 'var(--r-md)',
+          background: 'var(--bg-page)',
+          border: '1px solid var(--border-light)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '1.3rem',
+          marginBottom: 20,
         }}>
+          {step.icon}
+        </div>
+
+        <h3 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.4rem', fontWeight: 400,
+          color: 'var(--text-primary)',
+          marginBottom: 8, letterSpacing: '-0.01em',
+        }}>
+          {step.title}
+        </h3>
+        <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
           {step.desc}
         </p>
+
+        {/* Duration pill */}
+        <div style={{
+          marginTop: 16,
+          display: 'inline-flex',
+          padding: '3px 10px',
+          background: 'var(--bg-page)',
+          border: '1px solid var(--border-light)',
+          borderRadius: 'var(--r-full)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.65rem',
+          color: 'var(--text-muted)',
+        }}>
+          {step.duration}
+        </div>
       </div>
     </div>
   )

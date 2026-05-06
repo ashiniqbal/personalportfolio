@@ -14,9 +14,7 @@ import ScrollToTop from './components/ScrollToTop'
 
 function AppContent() {
   const location = useLocation()
-
   useEffect(() => {
-    // If navigating to a hash on the same page, scroll to it
     if (location.hash) {
       setTimeout(() => {
         const el = document.querySelector(location.hash)
@@ -25,7 +23,7 @@ function AppContent() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [location])
+  }, [location.pathname])
 
   return (
     <div className="page-transition" key={location.pathname}>
@@ -46,32 +44,19 @@ function AppContent() {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark'
+  // Default to light — matching the editorial reference design
+  const [theme] = useState(() => {
+    const saved = localStorage.getItem('theme')
+    return saved || 'light'
   })
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
-  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
-
-  // Expose toggle globally for Header
-  useEffect(() => {
-    window.__toggleTheme = toggleTheme
-    window.__getTheme = () => theme
   }, [theme])
 
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <div className="noise-overlay" aria-hidden="true" />
-        <div className="bg-orbs" aria-hidden="true">
-          <div className="bg-orb bg-orb-1" />
-          <div className="bg-orb bg-orb-2" />
-          <div className="bg-orb bg-orb-3" />
-        </div>
         <CustomCursor />
         <AppContent />
         <Toaster
@@ -80,9 +65,10 @@ export default function App() {
             style: {
               background: 'var(--bg-card)',
               color: 'var(--text-primary)',
-              border: '1px solid var(--border-subtle)',
+              border: '1px solid var(--border-light)',
               borderRadius: '12px',
               fontFamily: 'var(--font-body)',
+              fontSize: '0.875rem',
             }
           }}
         />

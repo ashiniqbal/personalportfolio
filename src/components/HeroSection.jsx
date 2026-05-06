@@ -1,295 +1,323 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles, Zap, Globe, Code2, Star } from 'lucide-react'
-import { stats } from '../data'
+import { ArrowUpRight } from 'lucide-react'
 
-const ROLES = ['Web Developer', 'UI/UX Designer', 'SEO Specialist', 'eCommerce Expert', 'Digital Partner']
+const ROLES = ['Web Developer', 'UI/UX Designer', 'SEO Specialist', 'eCommerce Expert']
 
 export default function HeroSection() {
   const [roleIdx, setRoleIdx] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const heroRef = useRef(null)
+  const [tick, setTick] = useState(true)
 
-  // Typewriter
   useEffect(() => {
     const current = ROLES[roleIdx]
-    let timeout
+    let t
     if (!isDeleting) {
-      if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 85)
-      } else {
-        timeout = setTimeout(() => setIsDeleting(true), 2200)
-      }
+      if (displayed.length < current.length) t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 82)
+      else t = setTimeout(() => setIsDeleting(true), 2200)
     } else {
-      if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 42)
-      } else {
-        setIsDeleting(false)
-        setRoleIdx(i => (i + 1) % ROLES.length)
-      }
+      if (displayed.length > 0) t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 38)
+      else { setIsDeleting(false); setRoleIdx(i => (i + 1) % ROLES.length) }
     }
-    return () => clearTimeout(timeout)
+    return () => clearTimeout(t)
   }, [displayed, isDeleting, roleIdx])
 
-  // Parallax on mouse move
   useEffect(() => {
-    const onMove = (e) => {
-      if (!heroRef.current) return
-      const rect = heroRef.current.getBoundingClientRect()
-      setMousePos({
-        x: ((e.clientX - rect.left) / rect.width - 0.5) * 20,
-        y: ((e.clientY - rect.top) / rect.height - 0.5) * 10,
-      })
-    }
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
+    const t = setInterval(() => setTick(v => !v), 540)
+    return () => clearInterval(t)
   }, [])
 
   return (
     <section
       id="home"
-      ref={heroRef}
       style={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
-        paddingTop: 100,
-        paddingBottom: 60,
+        paddingTop: 'var(--header-h)',
+        paddingBottom: 0,
+        background: 'var(--bg-page)',
       }}
     >
-      {/* Grid bg */}
-      <div className="grid-bg" />
-
-      {/* Large hero glow */}
+      {/* ── Main layout ── */}
       <div style={{
-        position: 'absolute', width: 900, height: 900, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(124,106,255,0.09) 0%, transparent 70%)',
-        left: '50%', top: '50%', transform: 'translate(-50%, -55%)',
-        pointerEvents: 'none',
-      }} />
+        flex: 1,
+        display: 'grid',
+        gridTemplateColumns: '48px 1fr 1fr',
+        gridTemplateRows: '1fr auto',
+        maxWidth: 1240,
+        margin: '0 auto',
+        width: '100%',
+        padding: '0 40px',
+        gap: 0,
+        minHeight: 'calc(100vh - var(--header-h))',
+      }} className="hero-master-grid">
 
-      {/* Top-left accent blob */}
-      <div style={{
-        position: 'absolute', width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(6,182,212,0.07), transparent)',
-        left: -150, top: -100, pointerEvents: 'none', filter: 'blur(40px)',
-      }} />
-
-      {/* Floating cards - left */}
-      <div style={{
-        position: 'absolute', left: 'max(3%, 20px)', top: '28%',
-        transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`,
-        transition: 'transform 0.3s ease', zIndex: 3,
-        display: 'flex', flexDirection: 'column', gap: 12,
-      }} className="hide-mobile">
-        {/* Availability */}
-        <div className="float-anim" style={{
-          padding: '12px 16px',
-          background: 'rgba(34,197,94,0.08)',
-          border: '1px solid rgba(34,197,94,0.2)',
-          borderRadius: 14,
-          backdropFilter: 'blur(16px)',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', animation: 'availability-pulse 2s infinite', flexShrink: 0 }} />
-            <span style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono)', color: '#22c55e', fontWeight: 600 }}>Available Now</span>
-          </div>
-          <div style={{ fontSize: '0.68rem', color: 'rgba(34,197,94,0.7)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>Open for new projects</div>
-        </div>
-
-        {/* Location */}
-        <div className="float-anim-slow" style={{
-          padding: '12px 16px',
-          background: 'var(--bg-glass)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 14, backdropFilter: 'blur(16px)',
-        }}>
-          <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: 2 }}>Based In</div>
-          <div style={{ fontSize: '0.85rem', fontFamily: 'var(--font-display)', fontWeight: 600, color: 'var(--text-primary)' }}>
-            🇮🇳 Kolkata, India
-          </div>
-        </div>
-
-        {/* Tech stack badge */}
-        <div className="float-rotate-anim" style={{
-          padding: '12px 16px',
-          background: 'rgba(124,106,255,0.08)',
-          border: '1px solid rgba(124,106,255,0.2)',
-          borderRadius: 14, backdropFilter: 'blur(16px)',
-          display: 'flex', alignItems: 'center', gap: 8,
-        }}>
-          <Code2 size={14} color="var(--accent-primary)" />
-          <span style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-primary)', fontWeight: 600 }}>React & WordPress</span>
-        </div>
-      </div>
-
-      {/* Floating cards - right */}
-      <div style={{
-        position: 'absolute', right: 'max(3%, 20px)', top: '22%',
-        transform: `translate(${-mousePos.x * 0.5}px, ${mousePos.y * 0.3}px)`,
-        transition: 'transform 0.3s ease', zIndex: 3,
-        display: 'flex', flexDirection: 'column', gap: 12,
-      }} className="hide-mobile">
-        {/* Countries */}
-        <div className="float-anim-slow" style={{
-          padding: '14px 18px',
-          background: 'var(--bg-glass)', border: '1px solid var(--border-subtle)',
-          borderRadius: 14, backdropFilter: 'blur(16px)', textAlign: 'center',
-        }}>
-          <div style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 800, background: 'var(--gradient-text)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>12+</div>
-          <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Countries</div>
-          <div style={{ fontSize: '0.78rem', marginTop: 4 }}>🇺🇸 🇨🇦 🇦🇺 🇳🇬 🇲🇾</div>
-        </div>
-
-        {/* 5-Star */}
-        <div className="float-anim" style={{
-          padding: '12px 16px',
-          background: 'rgba(251,191,36,0.08)',
-          border: '1px solid rgba(251,191,36,0.2)',
-          borderRadius: 14, backdropFilter: 'blur(16px)',
-        }}>
-          <div style={{ display: 'flex', gap: 2, marginBottom: 4 }}>
-            {[...Array(5)].map((_, i) => <Star key={i} size={11} fill="#fbbf24" color="#fbbf24" />)}
-          </div>
-          <div style={{ fontSize: '0.72rem', color: '#fbbf24', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>5-Star Fiverr Seller</div>
-        </div>
-
-        {/* Delivery */}
-        <div className="float-anim-slow" style={{
-          padding: '12px 16px',
-          background: 'var(--bg-glass)', border: '1px solid var(--border-subtle)',
-          borderRadius: 14, backdropFilter: 'blur(16px)',
-          display: 'flex', alignItems: 'center', gap: 8,
-        }}>
-          <Zap size={14} color="var(--accent-tertiary)" />
-          <div>
-            <div style={{ fontSize: '0.72rem', color: 'var(--accent-tertiary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>Fast Delivery</div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>~24 day avg</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main content - centered */}
-      <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center', padding: '0 24px', position: 'relative', zIndex: 2 }}>
-
-        {/* Eyebrow */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
-          <div className="availability-badge">
-            <div className="availability-dot" />
-            <span>Open for new projects — </span>
-            <Link to="/contact" style={{ color: '#22c55e', fontWeight: 700, textDecoration: 'underline' }}>Book a free call</Link>
-          </div>
-        </div>
-
-        {/* BIG headline */}
-        <h1 style={{
-          fontSize: 'clamp(2.8rem, 8vw, 6.5rem)',
-          fontFamily: 'var(--font-display)',
-          fontWeight: 800,
-          lineHeight: 1.02,
-          letterSpacing: '-0.04em',
-          marginBottom: 20,
-        }}>
-          <span style={{ display: 'block', color: 'var(--text-primary)' }}>Your Vision.</span>
-          <span style={{
-            display: 'block',
-            background: 'var(--gradient-text)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-          }}>My Code.</span>
-          <span style={{ display: 'block', color: 'var(--text-primary)' }}>Real Results.</span>
-        </h1>
-
-        {/* Typewriter role line */}
+        {/* ── Left vertical label column ── */}
         <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-          marginBottom: 24, flexWrap: 'wrap',
-        }}>
-          <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>
-            I'm a
+          gridColumn: '1', gridRow: '1 / 3',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'space-between', paddingBottom: 32, paddingTop: 40,
+          borderRight: '1px solid var(--border-light)',
+          marginRight: 32,
+          alignItems: 'center',
+        }} className="hide-mobile">
+          <span className="side-label">Product Designer</span>
+          <span className="year-label" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>
+            2025
           </span>
-          <span style={{
-            color: 'var(--accent-primary)',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.85rem, 2vw, 1rem)',
-            fontWeight: 600,
-            minWidth: '220px',
-            textAlign: 'left',
+        </div>
+
+        {/* ── Left content column ── */}
+        <div style={{
+          gridColumn: '2', gridRow: '1',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'flex-end',
+          paddingBottom: 28, paddingTop: 48,
+        }}>
+          {/* Stats row */}
+          <div style={{ display: 'flex', gap: 40, marginBottom: 32 }}>
+            {[
+              { n: '+50', l: 'Projects completed' },
+              { n: '+12', l: 'Countries served' },
+            ].map(s => (
+              <div key={s.l}>
+                <div style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+                  fontWeight: 400,
+                  color: 'var(--text-primary)',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                }}>{s.n}</div>
+                <div style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.78rem',
+                  color: 'var(--text-secondary)',
+                  marginTop: 4,
+                }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* BIG GREETING */}
+          <div style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(5rem, 14vw, 12rem)',
+            fontWeight: 400,
+            lineHeight: 0.9,
+            letterSpacing: '-0.04em',
+            color: 'var(--text-primary)',
+            marginBottom: 20,
           }}>
-            {displayed}<span style={{ animation: 'blink 1s step-end infinite' }}>|</span>
-          </span>
-          <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>
-            from Kolkata
-          </span>
+            Hello<span style={{ color: 'var(--text-secondary)' }}>.</span>
+          </div>
+
+          {/* Dash + subtitle */}
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+            color: 'var(--text-secondary)',
+            letterSpacing: '0.01em',
+          }}>
+            — It's Ashin, a{' '}
+            <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>
+              {displayed}
+              <span style={{ opacity: tick ? 1 : 0, transition: 'opacity 0.08s' }}>|</span>
+            </span>
+            {' '}from Kolkata
+          </p>
         </div>
 
-        {/* Description */}
-        <p style={{
-          fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-          color: 'var(--text-secondary)',
-          maxWidth: 600, margin: '0 auto 44px',
-          lineHeight: 1.8,
-        }}>
-          5+ years building <strong style={{ color: 'var(--text-primary)' }}>premium business websites & web apps</strong> for
-          clients across USA, Canada, Australia & India. I combine AI speed with human creativity to deliver
-          industry-level quality at a price that makes sense.
-        </p>
-
-        {/* CTA buttons */}
-        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 64 }}>
-          <Link to="/contact" className="btn-primary" style={{ fontSize: '1rem', padding: '16px 36px' }}>
-            <Sparkles size={18} />
-            Book Free Consultation
-          </Link>
-          <Link to="/work" className="btn-outline" style={{ fontSize: '1rem', padding: '15px 35px' }}>
-            View My Work <ArrowRight size={16} />
-          </Link>
-        </div>
-
-        {/* Stats row */}
+        {/* ── Right column — portrait / visual ── */}
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 0, maxWidth: 560, margin: '0 auto',
-          background: 'var(--bg-glass)', border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-xl)', backdropFilter: 'blur(12px)',
+          gridColumn: '3', gridRow: '1',
+          position: 'relative',
+          display: 'flex', alignItems: 'flex-end',
+          justifyContent: 'center',
+          paddingBottom: 0,
           overflow: 'hidden',
-        }}>
-          {stats.map((s, i) => (
-            <div key={i} style={{
-              padding: '20px 12px', textAlign: 'center',
-              borderRight: i < stats.length - 1 ? '1px solid var(--border-subtle)' : 'none',
+        }} className="hero-portrait-col">
+          {/* Large abstract portrait placeholder — monochrome style */}
+          <div style={{
+            width: '100%', maxWidth: 420,
+            aspectRatio: '3/4',
+            background: 'var(--c-border)',
+            borderRadius: 'var(--r-xl) var(--r-xl) 0 0',
+            position: 'relative',
+            overflow: 'hidden',
+            alignSelf: 'flex-end',
+          }}>
+            {/* Placeholder: monochrome gradient pattern */}
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: 'linear-gradient(160deg, #D8D8D8 0%, #B8B8B8 40%, #999 100%)',
+            }} />
+            {/* "Add your photo" label */}
+            <div style={{
+              position: 'absolute', inset: 0,
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 8,
             }}>
               <div style={{
-                fontFamily: 'var(--font-display)', fontWeight: 800,
-                fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-                background: 'var(--gradient-text)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                lineHeight: 1,
+                width: 64, height: 64, borderRadius: '50%',
+                background: 'rgba(255,255,255,0.3)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-serif)', fontSize: '1.8rem',
+                color: 'rgba(255,255,255,0.8)',
+              }}>A</div>
+              <span style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
+                color: 'rgba(255,255,255,0.5)',
+                letterSpacing: '0.1em', textTransform: 'uppercase',
               }}>
-                {s.number}{s.suffix}
-              </div>
-              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginTop: 4, letterSpacing: '0.04em' }}>
-                {s.label}
-              </div>
+                Add your photo here
+              </span>
             </div>
-          ))}
+
+            {/* Floating skill tags — like reference image 1 */}
+            <div className="float-anim" style={{
+              position: 'absolute', top: 18, left: -48,
+              padding: '8px 14px',
+              background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+              borderRadius: 'var(--r-full)',
+              display: 'flex', alignItems: 'center', gap: 7,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#FF6B35', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem' }}>⚡</div>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-primary)', fontWeight: 500 }}>React & WordPress</span>
+            </div>
+
+            <div className="float-anim-slow" style={{
+              position: 'absolute', top: 68, right: -52,
+              padding: '8px 14px',
+              background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+              borderRadius: 'var(--r-full)',
+              display: 'flex', alignItems: 'center', gap: 7,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#4A90D9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem' }}>🎨</div>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-primary)', fontWeight: 500 }}>UI/UX Design</span>
+            </div>
+
+            <div className="float-r-anim" style={{
+              position: 'absolute', top: 140, left: -44,
+              padding: '8px 14px',
+              background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+              borderRadius: 'var(--r-full)',
+              display: 'flex', alignItems: 'center', gap: 7,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#2C2C2C', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem' }}>🔍</div>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-primary)', fontWeight: 500 }}>SEO Expert</span>
+            </div>
+
+            <div className="float-anim" style={{
+              position: 'absolute', bottom: 80, right: -56,
+              padding: '8px 14px',
+              background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+              borderRadius: 'var(--r-full)',
+              display: 'flex', alignItems: 'center', gap: 7,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+              animationDelay: '-1.5s',
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#9B59B6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem' }}>🛒</div>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-primary)', fontWeight: 500 }}>eCommerce</span>
+            </div>
+
+            <div className="float-anim-slow" style={{
+              position: 'absolute', top: 210, right: -48,
+              padding: '8px 14px',
+              background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+              borderRadius: 'var(--r-full)',
+              display: 'flex', alignItems: 'center', gap: 7,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#27AE60', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem' }}>📈</div>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-primary)', fontWeight: 500 }}>Brand Identity</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom strip — full width ── */}
+        <div style={{
+          gridColumn: '2 / 4', gridRow: '2',
+          borderTop: '1px solid var(--border-light)',
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '20px 0',
+          flexWrap: 'wrap', gap: 16,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            {/* Availability */}
+            <div className="avail-badge">
+              <div className="avail-dot" />
+              Available for new projects
+            </div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+              📍 Kolkata, India
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+            <button
+              className="scroll-indicator"
+              onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0, flexDirection: 'row', gap: 8 }}
+            >
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
+                Scroll down ↓
+              </div>
+            </button>
+
+            <Link to="/contact" className="btn-dark" style={{ fontSize: '0.85rem', padding: '10px 22px' }}>
+              Book A Call <ArrowUpRight size={14} />
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
-        <div className="scroll-indicator">
-          <div className="scroll-line" />
-          <span>scroll</span>
-        </div>
-      </div>
-
+      {/* ── Responsive styles ── */}
       <style>{`
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @media (max-width: 860px) {
+          .hero-master-grid {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: auto auto auto !important;
+            padding: 0 20px !important;
+          }
+          .hero-portrait-col {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+            min-height: 280px;
+            padding-top: 20px;
+          }
+          .hero-portrait-col > div {
+            max-width: 100% !important;
+            aspect-ratio: 16/9 !important;
+            border-radius: var(--r-lg) !important;
+          }
+          .hero-master-grid > div:nth-child(2) {
+            grid-column: 1 !important;
+            grid-row: 2 !important;
+          }
+          .hero-master-grid > div:last-child {
+            grid-column: 1 !important;
+            grid-row: 3 !important;
+          }
+        }
+        @media (max-width: 580px) {
+          .hero-portrait-col { display: none; }
+          .hero-master-grid > div:nth-child(2) { grid-row: 1 !important; padding-top: 32px; }
+          .hero-master-grid > div:last-child { grid-row: 2 !important; }
+        }
       `}</style>
     </section>
   )

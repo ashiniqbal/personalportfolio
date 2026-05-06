@@ -14,21 +14,14 @@ export default function ContactPage() {
       </Helmet>
 
       {/* Hero */}
-      <section style={{ paddingTop: 140, paddingBottom: 40, position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-        <div className="grid-bg" />
-        <div className="hero-glow" style={{ opacity: 0.4 }} />
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+      <section style={{ paddingTop: 140, paddingBottom: 56, borderBottom: '1px solid var(--border-light)', background: 'var(--bg-page)' }}>
+        <div className="container">
           <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-              <div className="availability-badge">
-                <div className="availability-dot" />
-                Currently accepting new clients
-              </div>
-            </div>
-            <h1 style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', marginBottom: 20, letterSpacing: '-0.03em' }}>
-              Let's Build Something <span className="gradient-text">Exceptional</span>
+            <div className="section-label" style={{ display: 'inline-flex', marginBottom: 16 }}>● Currently accepting new clients</div>
+            <h1 style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)', lineHeight: 1, marginBottom: 20 }}>
+              Let's Build<br /><em>Together</em>
             </h1>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: 480, fontSize: '0.95rem', lineHeight: 1.75 }}>
               Book a free 30-minute consultation — no commitment, no pressure.
               Just an honest conversation about your project and how I can help.
             </p>

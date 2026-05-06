@@ -1,95 +1,48 @@
-// ===== PROJECTS (with real mockup images) =====
+// ===== PROJECTS — correct order with all URLs =====
 export const projects = [
   {
     id: 1,
-    title: "Hyderabad Meats",
-    type: "eCommerce / Food",
-    location: "India 🇮🇳",
-    desc: "Halal-certified meat store with product catalog, online ordering, and Charminar-inspired premium brand identity.",
-    url: "#",
-    image: "/projects/hyderabad-meats.jpg",
+    title: "KK Bakery Store",
+    type: "eCommerce / Bakery",
+    location: "Brampton, Ontario 🇨🇦",
+    desc: "Charming custom-cake eCommerce store with online ordering, custom cake builder, specialty products catalog, and brand identity for a Brampton-based artisan bakery.",
+    url: "https://mediumslateblue-raven-531049.hostingersite.com/",
+    image: "/projects/kk-bakery.jpg",
     tags: ["WordPress", "WooCommerce", "Branding"],
-    color: "#f97316",
-    status: "Live"
+    color: "#ec4899",
+    status: "Ongoing"
   },
   {
     id: 2,
-    title: "Grandios Life",
-    type: "Wellness & Counseling",
-    location: "Encinitas, CA 🇺🇸",
-    desc: "Premium wellness & counseling platform with appointment booking, promo video integration, and life coaching services.",
-    url: "https://grandioslife.us/",
-    image: "/projects/grandios-life.jpg",
-    tags: ["WordPress", "Booking", "SEO"],
-    color: "#06b6d4",
-    status: "Live"
+    title: "PBIS LLC Store",
+    type: "Security / eCommerce",
+    location: "Cleveland, USA 🇺🇸",
+    desc: "Professional surveillance & security solutions store with full product catalog including IP cameras, POS terminals, NVR systems, and AI-sense security hardware.",
+    url: "https://stock.pbisllc.com/",
+    image: "/projects/pbis-llc.png",
+    tags: ["WooCommerce", "Security Tech", "B2B"],
+    color: "#3b82f6",
+    status: "Ongoing"
   },
   {
     id: 3,
-    title: "Genesis Jewellery Boutique",
-    type: "Luxury eCommerce",
-    location: "Canada 🇨🇦",
-    desc: "High-end jewellery store with custom ring builder, gift cards, multi-currency support (CAD/USD), and consultation booking.",
-    url: "#",
-    image: "/projects/genesis-jewellery.jpg",
-    tags: ["WooCommerce", "Customizer", "Multi-Currency"],
+    title: "Believer Brew House",
+    type: "Restaurant & Bar",
+    location: "USA 🇺🇸",
+    desc: "Modern craft brewery brand website with full menu, events calendar, online booking system, and an immersive craft beer experience that captures the brand identity.",
+    url: "https://bbh.beer",
+    demoUrl: "https://lightpink-albatross-658514.hostingersite.com",
+    image: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80",
+    tags: ["WordPress", "Booking", "UI/UX"],
     color: "#a855f7",
-    status: "Live"
+    status: "Ongoing"
   },
   {
     id: 4,
-    title: "Empire Business Advisors",
-    type: "M&A / Finance",
-    location: "Cleveland, OH 🇺🇸",
-    desc: "Merger & acquisition firm website with business broker listings, lead funnels, and enterprise-level credibility design.",
-    url: "#",
-    image: "/projects/empire-business.jpg",
-    tags: ["WordPress", "Lead Gen", "SEO"],
-    color: "#22c55e",
-    status: "Live"
-  },
-  {
-    id: 5,
-    title: "DigiMocktail",
-    type: "Digital Agency",
-    location: "India 🇮🇳",
-    desc: "Creative digital agency site for branding & SEO services, with animated hero, full service showcase, and consultation funnel.",
-    url: "#",
-    image: "/projects/digi-mocktail.jpg",
-    tags: ["React", "Animations", "Branding"],
-    color: "#84cc16",
-    status: "Live"
-  },
-  {
-    id: 6,
-    title: "Agillitics",
-    type: "SaaS / Analytics",
-    location: "Atlanta, GA 🇺🇸",
-    desc: "Supply chain analytics SaaS with unified data dashboard, enterprise login portal, case studies, and resource library.",
-    url: "https://www.agillitics.com/",
-    image: "/projects/agillitics.jpg",
-    tags: ["WordPress", "SaaS", "Analytics"],
-    color: "#3b82f6",
-    status: "Live"
-  },
-  {
-    id: 7,
-    title: "The Ace Team",
-    type: "Real Estate",
-    location: "Fraser Valley, Canada 🇨🇦",
-    desc: "Premium real estate team website with property listings, team showcase, appointment booking, and market insights blog.",
-    url: "https://www.theaceteam.ca/",
-    image: "/projects/ace-team.jpg",
-    tags: ["WordPress", "MLS Listings", "SEO"],
-    color: "#eab308",
-    status: "Live"
-  },
-  {
-    id: 8,
     title: "Liberty Pain Care",
     type: "Healthcare",
     location: "Holmdel, NJ 🇺🇸",
-    desc: "Medical clinic website with HIPAA-friendly design, appointment booking, doctor profiles, and patient resource library.",
+    desc: "HIPAA-friendly medical clinic website with appointment booking, doctor profiles, treatment pages, and a patient resource library that builds trust and drives consultations.",
     url: "https://libertypaincare.com/",
     image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&q=80",
     tags: ["WordPress", "Healthcare", "Booking"],
@@ -97,11 +50,11 @@ export const projects = [
     status: "Live"
   },
   {
-    id: 9,
+    id: 5,
     title: "Moti Mahal Restaurant",
     type: "Restaurant",
-    location: "Melbourne, VIC 🇦🇺",
-    desc: "Elegant Indian restaurant with online reservations, full menu showcase, event listings, and Google Maps integration.",
+    location: "Malvern, Victoria 🇦🇺",
+    desc: "Elegant Indian restaurant website with online reservations, a full menu showcase, event listings, and Google Maps integration for a premium dining experience.",
     url: "https://motimahalrestaurant.com.au/",
     image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80",
     tags: ["WordPress", "Reservations", "SEO"],
@@ -109,23 +62,11 @@ export const projects = [
     status: "Live"
   },
   {
-    id: 10,
-    title: "Naija Voices",
-    type: "Community Platform",
-    location: "Lagos, Nigeria 🇳🇬",
-    desc: "African community media platform with forums, news publishing, multimedia content, and 10k+ member management.",
-    url: "https://naijavoices.com/",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80",
-    tags: ["WordPress", "BuddyPress", "Community"],
-    color: "#22c55e",
-    status: "Live"
-  },
-  {
-    id: 11,
+    id: 6,
     title: "Ariya Boutique",
     type: "Fashion eCommerce",
     location: "Brampton, Ontario 🇨🇦",
-    desc: "Luxury fashion boutique with full WooCommerce setup, size guides, look-books, and Instagram shop integration.",
+    desc: "Luxury fashion boutique with full WooCommerce setup, size guides, curated look-books, and Instagram shop integration driving consistent online sales.",
     url: "https://ariyaboutique.com/",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
     tags: ["WooCommerce", "Fashion", "PHP"],
@@ -133,14 +74,86 @@ export const projects = [
     status: "Live"
   },
   {
+    id: 7,
+    title: "Get Peached",
+    type: "Café / Food",
+    location: "Lethbridge, AB 🇨🇦",
+    desc: "Trendy café website with daily menu updates, event announcements, catering request forms, and a vibrant brand identity for a beloved local Lethbridge café.",
+    url: "https://getpeached.ca/",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    tags: ["WordPress", "Elementor", "Brand"],
+    color: "#eab308",
+    status: "Live"
+  },
+  {
+    id: 8,
+    title: "Naija Voices",
+    type: "Community Platform",
+    location: "Lagos, Nigeria 🇳🇬",
+    desc: "African community media platform with forums, news publishing, multimedia content management, and a thriving 10k+ member ecosystem for Nigerian voices worldwide.",
+    url: "https://naijavoices.com/",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80",
+    tags: ["WordPress", "BuddyPress", "Community"],
+    color: "#22c55e",
+    status: "Live"
+  },
+  {
+    id: 9,
+    title: "The Ace Team",
+    type: "Real Estate",
+    location: "Fraser Valley, Canada 🇨🇦",
+    desc: "Premium real estate team website with property listings, team showcase, appointment booking, and market insights blog for Fraser Valley's top-performing agents.",
+    url: "https://www.theaceteam.ca/",
+    image: "/projects/ace-team.jpg",
+    tags: ["WordPress", "MLS Listings", "SEO"],
+    color: "#eab308",
+    status: "Live"
+  },
+  {
+    id: 10,
+    title: "Agillitics",
+    type: "SaaS / Analytics",
+    location: "Atlanta, GA 🇺🇸",
+    desc: "Supply chain analytics SaaS with unified data dashboards, enterprise login portal, resource library, and case studies that drive high-value B2B client acquisition.",
+    url: "https://www.agillitics.com/",
+    image: "/projects/agillitics.jpg",
+    tags: ["WordPress", "SaaS", "Analytics"],
+    color: "#3b82f6",
+    status: "Live"
+  },
+  {
+    id: 11,
+    title: "Grandios Life",
+    type: "Wellness & Counseling",
+    location: "Encinitas, CA 🇺🇸",
+    desc: "Premium wellness & counseling platform with appointment booking, promo video integration, membership subscriptions, and life coaching services.",
+    url: "https://grandioslife.us/",
+    image: "/projects/grandios-life.jpg",
+    tags: ["WordPress", "Booking", "SEO"],
+    color: "#06b6d4",
+    status: "Live"
+  },
+  {
     id: 12,
-    title: "Believer Brew House",
-    type: "Restaurant & Bar",
-    location: "USA 🇺🇸",
-    desc: "Modern brewery brand website with menu, events, online booking system, and immersive craft beer brand experience.",
-    url: "https://bbh.beer",
-    image: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80",
-    tags: ["WordPress", "Booking", "UI/UX"],
+    title: "wKana Gourmet",
+    type: "Specialty Food Store",
+    location: "Houston, Texas 🇺🇸",
+    desc: "Gourmet food brand store with curated product pages, subscription boxes, recipe blog, and seamless shipping integrations for a premium artisan food brand.",
+    url: "https://wkanagourmet.com/",
+    image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&q=80",
+    tags: ["WooCommerce", "Shipping API", "PHP"],
+    color: "#f97316",
+    status: "Live"
+  },
+  {
+    id: 13,
+    title: "Prana Violet Healing",
+    type: "Wellness / Healing",
+    location: "Kuala Lumpur, Malaysia 🇲🇾",
+    desc: "Holistic healing & wellness website with service pages, booking system, crystal healing products, and a brand experience that radiates calm and spiritual trust.",
+    url: "https://pranaviolethealingusa.com/",
+    image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80",
+    tags: ["WordPress", "Booking", "Wellness"],
     color: "#a855f7",
     status: "Ongoing"
   }
@@ -176,7 +189,7 @@ export const testimonials = [
   { id: 6, name: "James O'Brien", role: "Co-founder", company: "Believer Brew House", location: "USA 🇺🇸", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80", rating: 5, text: "Ashin understood our craft beer brand better than any local agency. The site captures the vibe perfectly. Available, responsive, and genuinely cared about making it great. Planning phase two already." }
 ];
 
-// ===== BLOGS (with full content) =====
+// ===== BLOGS =====
 export const blogs = [
   {
     id: 1, slug: "ai-transformed-developers",
@@ -185,7 +198,7 @@ export const blogs = [
     category: "AI & Development", date: "April 10, 2025", readTime: "6 min read",
     image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80",
     tags: ["AI", "Web Development", "Productivity"],
-    content: `<p>Every few years, a new technology arrives and someone declares that developers are obsolete. First it was website builders like Wix and Squarespace. Then no-code tools. Now AI. And every time, the prediction turns out to be wrong — because these predictions fundamentally misunderstand what developers actually do.</p><h2>The Real Story</h2><p>When AI coding tools like GitHub Copilot and ChatGPT arrived, I was genuinely nervous. I spent three months deeply integrating these tools into my workflow, expecting to feel replaced. What happened was the opposite: I became significantly more productive, more accurate, and able to take on more complex projects.</p><p>The key insight? AI is extraordinary at generating boilerplate code, suggesting patterns, and catching syntax errors. But it has no idea what your client actually needs, what their brand represents, or why a certain UX pattern will frustrate their specific audience. That judgment — earned through hundreds of real-world projects — is irreplaceable.</p><h2>What AI Does Well</h2><ul><li><strong>Boilerplate generation</strong> — Project scaffolding that used to take hours now takes minutes.</li><li><strong>Code reviews</strong> — AI catches edge cases and potential bugs faster than manual review.</li><li><strong>Documentation</strong> — Writing clear code comments instantly.</li><li><strong>Rapid prototyping</strong> — Testing an idea before committing to a full build.</li></ul><h2>What AI Cannot Do</h2><ul><li><strong>Understanding business context</strong> — A bakery in Brampton has completely different conversion priorities than a healthcare clinic in New Jersey.</li><li><strong>Design intuition</strong> — Knowing why a certain layout will perform better requires taste, experience, and knowledge of your specific audience.</li><li><strong>Client communication</strong> — Managing expectations, translating vague requirements into specifications, and building trust.</li><li><strong>SEO strategy</strong> — Technical SEO requires understanding how Google's algorithm interacts with your specific industry.</li></ul><h2>The Bottom Line</h2><p>Don't hire an AI to build your business's digital presence. Hire a developer who knows how to use AI — one who brings judgment, experience, and creative thinking that no model can replicate, combined with the speed and precision that AI enables. That's the combination that wins.</p>`
+    content: `<p>Every few years, a new technology arrives and someone declares that developers are obsolete. First it was website builders like Wix and Squarespace. Then no-code tools. Now AI. And every time, the prediction turns out to be wrong — because these predictions fundamentally misunderstand what developers actually do.</p><h2>The Real Story</h2><p>When AI coding tools like GitHub Copilot and ChatGPT arrived, I was genuinely nervous. I spent three months deeply integrating these tools into my workflow, expecting to feel replaced. What happened was the opposite: I became significantly more productive, more accurate, and able to take on more complex projects.</p><p>The key insight? AI is extraordinary at generating boilerplate code, suggesting patterns, and catching syntax errors. But it has no idea what your client actually needs, what their brand represents, or why a certain UX pattern will frustrate their specific audience. That judgment — earned through hundreds of real-world projects — is irreplaceable.</p><h2>What AI Does Well</h2><ul><li><strong>Boilerplate generation</strong> — Project scaffolding that used to take hours now takes minutes.</li><li><strong>Code reviews</strong> — AI catches edge cases and potential bugs faster than manual review.</li><li><strong>Documentation</strong> — Writing clear code comments instantly.</li><li><strong>Rapid prototyping</strong> — Testing an idea before committing to a full build.</li></ul><h2>What AI Cannot Do</h2><ul><li><strong>Understanding business context</strong> — A bakery in Brampton has completely different conversion priorities than a healthcare clinic in New Jersey.</li><li><strong>Design intuition</strong> — Knowing why a certain layout will perform better requires taste and experience.</li><li><strong>Client communication</strong> — Managing expectations and building trust over a project lifecycle.</li><li><strong>SEO strategy</strong> — Technical SEO requires understanding how Google's algorithm interacts with your specific industry.</li></ul><h2>The Bottom Line</h2><p>Don't hire an AI to build your business's digital presence. Hire a developer who knows how to use AI — one who brings judgment, experience, and creative thinking that no model can replicate, combined with the speed and precision that AI enables. That's the combination that wins.</p>`
   },
   {
     id: 2, slug: "launch-business-website-2025",
@@ -194,7 +207,7 @@ export const blogs = [
     category: "Business", date: "March 22, 2025", readTime: "9 min read",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
     tags: ["Business", "Website Launch", "India"],
-    content: `<p>You've decided to take your business online. But now you're staring at a wall of decisions — domain registrars, hosting providers, website builders, WordPress vs custom code. This guide cuts through the noise.</p><h2>Step 1: Define Your Primary Goal</h2><p>Before you touch any tool, answer this: What is the ONE thing you want visitors to do when they land on your site? Book an appointment? Buy a product? Call you? Every other decision flows from this.</p><h2>Step 2: Secure Your Domain</h2><ul><li>Always prefer a <strong>.com</strong> — it builds the most trust internationally</li><li>For India-only businesses, <strong>.in</strong> works and is cheaper</li><li>Keep it short, memorable, and easy to spell</li><li>Godaddy, Namecheap, or Hostinger are reliable registrars</li></ul><h2>Step 3: Choose the Right Hosting</h2><ul><li><strong>Hostinger</strong> — Best value, excellent Indian support, fast servers</li><li><strong>SiteGround</strong> — Premium reliability for eCommerce</li><li><strong>Cloudways</strong> — For high-traffic sites needing cloud infrastructure</li></ul><h2>Step 4: Essential Pages You Must Have</h2><p>Don't launch without: Home, About Us, Services/Products, Contact, Privacy Policy. If you have a blog, add that too — it's your best long-term SEO investment.</p><h2>Step 5: SEO From Day One</h2><p>Install Yoast or RankMath, set up Google Search Console, submit your sitemap, and optimize page titles before you go live. SEO added "later" is always less effective than SEO baked in from the start.</p>`
+    content: `<p>You've decided to take your business online. But now you're staring at a wall of decisions — domain registrars, hosting providers, website builders, WordPress vs custom code. This guide cuts through the noise.</p><h2>Step 1: Define Your Primary Goal</h2><p>Before you touch any tool, answer this: What is the ONE thing you want visitors to do when they land on your site? Book an appointment? Buy a product? Call you? Every other decision flows from this.</p><h2>Step 2: Secure Your Domain</h2><ul><li>Always prefer a <strong>.com</strong> — it builds the most trust internationally</li><li>For India-only businesses, <strong>.in</strong> works and is cheaper</li><li>Keep it short, memorable, and easy to spell</li><li>Godaddy, Namecheap, or Hostinger are reliable registrars</li></ul><h2>Step 3: Choose the Right Hosting</h2><ul><li><strong>Hostinger</strong> — Best value, excellent Indian support, fast servers</li><li><strong>SiteGround</strong> — Premium reliability for eCommerce</li><li><strong>Cloudways</strong> — For high-traffic sites needing cloud infrastructure</li></ul><h2>Step 4: Essential Pages You Must Have</h2><p>Don't launch without: Home, About Us, Services/Products, Contact, Privacy Policy. Add a blog too — it's your best long-term SEO investment.</p><h2>Step 5: SEO From Day One</h2><p>Install Yoast or RankMath, set up Google Search Console, submit your sitemap, and optimize page titles before you go live. SEO added "later" is always less effective than SEO baked in from the start.</p>`
   },
   {
     id: 3, slug: "wordpress-vs-react",

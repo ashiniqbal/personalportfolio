@@ -1,119 +1,121 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Search } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { blogs } from '../data'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { BlogCard } from '../components/BlogSection'
 
-const CATEGORIES = ['All', ...new Set(blogs.map(b => b.category))]
+const CATS = ['All', ...new Set(blogs.map(b => b.category))]
 
 export default function BlogPage() {
   const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState('All')
+  const [cat, setCat] = useState('All')
   const [headRef, headVisible] = useScrollReveal()
 
   const filtered = blogs.filter(b => {
-    const matchCat = activeCategory === 'All' || b.category === activeCategory
-    const matchSearch = b.title.toLowerCase().includes(search.toLowerCase()) ||
-      b.excerpt.toLowerCase().includes(search.toLowerCase())
+    const matchCat = cat === 'All' || b.category === cat
+    const matchSearch = b.title.toLowerCase().includes(search.toLowerCase()) || b.excerpt.toLowerCase().includes(search.toLowerCase())
     return matchCat && matchSearch
   })
 
   return (
     <>
       <Helmet>
-        <title>Blog | Ashin Iqbal – Web Development Insights from Kolkata</title>
+        <title>Blog | Ashin Iqbal – Web Development & Design Insights</title>
         <meta name="description" content="Web development tips, business website guides, SEO insights and more from Ashin Iqbal – Kolkata's leading freelance web developer." />
         <link rel="canonical" href="https://ashiniqbal.com/blogs" />
       </Helmet>
 
-      {/* Hero */}
-      <section style={{ paddingTop: 140, paddingBottom: 72, textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div className="grid-bg" />
-        <div className="hero-glow" style={{ opacity: 0.5 }} />
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+      {/* Page hero */}
+      <section style={{ paddingTop: 140, paddingBottom: 72, borderBottom: '1px solid var(--border-light)' }}>
+        <div className="container">
           <div ref={headRef} className={`fade-up ${headVisible ? 'visible' : ''}`}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-              <div className="section-label">The Blog</div>
-            </div>
-            <h1 style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', marginBottom: 20, letterSpacing: '-0.03em' }}>
-              Insights on <span className="gradient-text">Web & Business</span>
-            </h1>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: 1.7 }}>
-              Practical guides, case studies, and honest takes on web development, SEO,
-              and building a business online — from a developer who's been in the trenches.
-            </p>
-            <div style={{ maxWidth: 480, margin: '0 auto', position: 'relative' }}>
-              <Search size={16} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-              <input
-                type="search" placeholder="Search articles..."
-                value={search} onChange={e => setSearch(e.target.value)}
-                className="form-control"
-                style={{ paddingLeft: 44, borderRadius: 'var(--radius-full)' }}
-              />
+            <div className="section-label" style={{ display: 'inline-flex', marginBottom: 16 }}>● Blogs</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, alignItems: 'end' }}>
+              <h1 style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)', lineHeight: 1 }}>
+                Design Insights<br /><em>& Trends</em>
+              </h1>
+              <div>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.95rem', maxWidth: 380, marginBottom: 20 }}>
+                  Practical guides, case studies, and honest takes on web development, SEO, and building a business online.
+                </p>
+                {/* Search */}
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="search" placeholder="Search articles..."
+                    value={search} onChange={e => setSearch(e.target.value)}
+                    style={{
+                      width: '100%', padding: '10px 16px',
+                      background: 'var(--bg-card)', border: '1px solid var(--border-light)',
+                      borderRadius: 'var(--r-full)', outline: 'none',
+                      fontFamily: 'var(--font-body)', fontSize: '0.875rem', color: 'var(--text-primary)',
+                      transition: 'border-color var(--t-fast)',
+                    }}
+                    onFocus={e => e.target.style.borderColor = 'var(--border-dark)'}
+                    onBlur={e => e.target.style.borderColor = 'var(--border-light)'}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Filter + Grid */}
-      <section style={{ paddingTop: 0 }}>
+      <section style={{ paddingTop: 52 }}>
         <div className="container">
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 40 }}>
-            {CATEGORIES.map(cat => (
-              <button key={cat} onClick={() => setActiveCategory(cat)} style={{
-                padding: '8px 20px', borderRadius: 'var(--radius-full)',
-                fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
-                border: '1px solid', cursor: 'pointer', transition: 'all 0.2s',
-                borderColor: activeCategory === cat ? 'var(--accent-primary)' : 'var(--border-subtle)',
-                background: activeCategory === cat ? 'rgba(124,106,255,0.12)' : 'transparent',
-                color: activeCategory === cat ? 'var(--accent-primary)' : 'var(--text-muted)',
+          {/* Category filters */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 36 }}>
+            {CATS.map(c => (
+              <button key={c} onClick={() => setCat(c)} style={{
+                padding: '7px 16px', borderRadius: 'var(--r-full)',
+                fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 500,
+                border: '1px solid', cursor: 'pointer', transition: 'all var(--t-fast)',
+                borderColor: cat === c ? 'var(--text-primary)' : 'var(--border-light)',
+                background: cat === c ? 'var(--text-primary)' : 'transparent',
+                color: cat === c ? 'var(--bg-page)' : 'var(--text-muted)',
+                whiteSpace: 'nowrap',
               }}>
-                {cat}
+                {c}
               </button>
             ))}
           </div>
 
-          <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.78rem', marginBottom: 32 }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: 28 }}>
             {filtered.length} article{filtered.length !== 1 ? 's' : ''}
           </p>
 
           {filtered.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
-              {filtered.map((blog, i) => <BlogCard key={blog.id} blog={blog} delay={i * 0.06} />)}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 20 }}>
+              {filtered.map((b, i) => <BlogCard key={b.id} blog={b} delay={i * 0.06} />)}
             </div>
           ) : (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
-              <div style={{ fontSize: '3rem', marginBottom: 16 }}>🔍</div>
-              <p>No articles found matching "{search}"</p>
-              <button onClick={() => { setSearch(''); setActiveCategory('All') }} className="btn-outline" style={{ marginTop: 20 }}>
+            <div style={{ textAlign: 'center', padding: '64px 0', color: 'var(--text-muted)' }}>
+              <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: 12 }}>No results found</p>
+              <button onClick={() => { setSearch(''); setCat('All') }} className="btn-outline" style={{ marginTop: 8 }}>
                 Clear filters
               </button>
             </div>
           )}
-        </div>
-      </section>
 
-      {/* Newsletter CTA */}
-      <section>
-        <div className="container">
+          {/* Newsletter */}
           <div style={{
-            textAlign: 'center', padding: 'clamp(40px, 6vw, 72px)',
-            background: 'linear-gradient(135deg, rgba(124,106,255,0.08), rgba(6,182,212,0.05))',
-            border: '1px solid var(--border-accent)', borderRadius: 'var(--radius-xl)',
+            marginTop: 64, padding: 'clamp(32px, 5vw, 52px)',
+            border: '1px solid var(--border-light)', borderRadius: 'var(--r-xl)',
+            display: 'flex', flexWrap: 'wrap', gap: 24,
+            justifyContent: 'space-between', alignItems: 'center',
+            background: 'var(--bg-card)',
           }}>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', marginBottom: 16 }}>
-              Want Tips Delivered to Your Inbox?
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto 32px' }}>
-              Monthly roundup of what's actually working in web development and digital marketing. No spam.
-            </p>
-            <div style={{ display: 'flex', gap: 12, maxWidth: 440, margin: '0 auto', flexWrap: 'wrap' }}>
-              <input type="email" placeholder="your@email.com" className="form-control" style={{ flex: 1, minWidth: 220 }} />
-              <button className="btn-primary" style={{ flexShrink: 0 }}>
-                Subscribe <ArrowRight size={16} />
-              </button>
+            <div>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', fontWeight: 400, marginBottom: 6 }}>
+                Want tips in your inbox?
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Monthly roundup of what's working. No spam.</p>
+            </div>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <input type="email" placeholder="your@email.com"
+                style={{ padding: '10px 16px', borderRadius: 'var(--r-full)', border: '1px solid var(--border-light)', background: 'var(--bg-page)', fontFamily: 'var(--font-body)', fontSize: '0.875rem', outline: 'none', minWidth: 200, color: 'var(--text-primary)' }} />
+              <button className="btn-dark" style={{ flexShrink: 0 }}>Subscribe <ArrowUpRight size={14} /></button>
             </div>
           </div>
         </div>
